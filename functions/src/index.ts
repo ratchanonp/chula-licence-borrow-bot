@@ -1,8 +1,8 @@
 import * as logger from "firebase-functions/logger";
-import {onSchedule} from "firebase-functions/scheduler";
-import fetch, {Headers, RequestInit} from "node-fetch";
+import { onSchedule } from "firebase-functions/scheduler";
+import fetch, { Headers, RequestInit } from "node-fetch";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const {defineSecret} = require("firebase-functions/params");
+const { defineSecret } = require("firebase-functions/params");
 
 
 const studentEmail = defineSecret("STUDENT_EMAIL");
@@ -34,12 +34,20 @@ const longestBorrowDuration = {
   [ProgramLicenseID.Foxit]: 7,
 };
 
+/**
+ * Schedules a cron job to borrow an Adobe license every Sunday at midnight.
+ * 
+ * This function logs into the Chula License Portal, attempts to borrow an Adobe Creative Cloud license,
+ * and logs the result of the operation.
+ * 
+ * @returns {Promise<void>} A promise that resolves when the operation is complete.
+ */
 export const borrowAdobe = onSchedule("0 0 * * 0", async () => {
   logger.info("Borrowing Adobe license...");
 
   const cookie = await loginChulaLicensePortal();
   if (cookie === null) {
-    // logger.error("Login failed");
+    logger.error("Login failed");
     return;
   }
 
@@ -54,6 +62,13 @@ export const borrowAdobe = onSchedule("0 0 * * 0", async () => {
   return;
 });
 
+/**
+ * Schedules a cron job to borrow a Zoom license every 4 months on the 1st day at midnight.
+ * 
+  * This function logs into the Chula License Portal, attempts to borrow a Zoom license,
+ * 
+ * @returns {Promise<void>} A promise that resolves when the function completes.
+ */
 export const borrowZoom = onSchedule("0 0 1 */4 *", async () => {
   logger.info("Borrowing Zoom license...");
 
