@@ -28,7 +28,7 @@ This project leverages Firebase Cloud Functions (v2) to schedule a function that
 1. **Clone the Repository:**
 
    ```bash
-   git clone hhttps://github.com/ratchanonp/chula-licence-auto-renewal.git
+   git clone https://github.com/ratchanonp/chula-licence-auto-renewal.git
    ```
 
 2. **Install Dependencies:**
