@@ -43,16 +43,10 @@ This project leverages Firebase Cloud Functions (v2) to schedule a function that
 
 3. **Configure Firebase:**
    * Create a Firebase project in the [Firebase Console](https://console.firebase.google.com/). Firebase project have to use blaze plan!
-   * Initialize Firebase in your project directory:
-
-     ```bash
-     firebase init functions
-     ```
-
-   * Select the Firebase project you created.
-   * Choose TypeScript for the language.
-   * Install the Firebase CLI tools if prompted.
-
+   * (Optional) 
+     * If it's first time you use Firebase CLI, you need to install Firebase CLI by running `npm install -g firebase-tools`
+     * If it's first time you use Firebase CLI, you need to login to Firebase CLI by running `firebase login`
+   * Replace `<firebase-project-id>` in `.firebaserc` file with your project id
 4. **Set up Environment Variables:**
    * Create a `.env` file in the `functions` directory.
    * Add the following environment variables, replacing the placeholders with your actual credentials and desired settings:

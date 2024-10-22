@@ -1,5 +1,5 @@
 {
   "projects": {
-    "default": "q-cronjob"
+    "default": "<firebase-project-id>"
   }
 }
