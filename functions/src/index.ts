@@ -31,7 +31,7 @@ enum ProgramLicenseID {
 const longestBorrowDuration = {
   [ProgramLicenseID.Zoom]: 120,
   [ProgramLicenseID.AdobeCC]: 7,
-  [ProgramLicenseID.Foxit]: 7,
+  [ProgramLicenseID.Foxit]: 90,
 };
 
 /**
@@ -85,6 +85,33 @@ export const borrowZoom = onSchedule("0 0 1 */4 *", async () => {
   }
 
   logger.info("Borrowed Zoom license successfully");
+
+  return;
+});
+
+/**
+ * Schebule a cron job to borrow a Foxit license every 3 months on the 1st day at midnight.
+ * 
+ * This function logs into the Chula License Portal, attempts to borrow a Foxit license,
+ * 
+ * @returns {Promise<void>} A promise that resolves when the function completes.
+ */
+export const borrowFoxit = onSchedule("0 0 1 */3 *", async () => {
+  logger.info("Borrowing Foxit license...");
+
+  const cookie = await loginChulaLicensePortal();
+  if (cookie === null) {
+    logger.error("Login failed");
+    return;
+  }
+
+  const success = await borrowLicense(cookie, ProgramLicenseID.Foxit);
+  if (!success) {
+    logger.error("Borrow failed");
+    return;
+  }
+
+  logger.info("Borrowed Foxit license successfully");
 
   return;
 });
